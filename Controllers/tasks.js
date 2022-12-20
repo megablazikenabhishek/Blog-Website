@@ -4,7 +4,7 @@ const badWord = require("bad-words");
 const filter = new badWord();
 
 const initalize = ()=>{
-    filter.addWords("gay", "bsdk", "saale", "chutiya", "kamina", "Maderchod", "Bosdika", "Behen", "chod", "Randwa", "maa", "Bhadwa", "chuth", "randi", "ma");
+    filter.addWords("gay", "bsdk", "saale", "chutiya", "kamina", "Maderchod", "Bosdika", "Behen", "chod", "Randwa", "maa", "Bhadwa", "chuth", "randi", "ma", "lavda", "lavde");
 }
 
 const getAllTasks = async(req, res)=>{
