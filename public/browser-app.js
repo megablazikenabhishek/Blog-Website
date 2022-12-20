@@ -134,7 +134,7 @@ const dislikeBlog = async(e)=>{
     dislikes = Number(dislikes.textContent);
 
     //for likes
-    let like = e.currentTarget.parentElement.children[1].children[1].textContent;
+    let like = e.currentTarget.parentElement.children[0].children[1].textContent;
     like = Number(like);
 
     // console.log(like, dislikes);
