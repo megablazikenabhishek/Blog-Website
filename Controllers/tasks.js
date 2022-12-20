@@ -22,6 +22,7 @@ const createTasks = async(req, res)=>{
     try {
         // console.log(req.body);
         let {author, body} = req.body;
+        author = filter.clean(author);
         body = filter.clean(body);
         // console.log(body);
         const task = await Tasks.create({author, body});
