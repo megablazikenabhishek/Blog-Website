@@ -4,6 +4,7 @@ const tasks = require("./Routers/tasks");
 require("dotenv").config();
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorhandler");
+const {initalize} = require("./Controllers/tasks");
 
 //DB
 const connectDB =  require("./db/connection");
@@ -24,6 +25,7 @@ const port = process.env.PORT||4200;
 const start = async()=>{
     try {
         await connectDB(process.env.MONGO_URI);  
+        initalize();
         app.listen(port, ()=> console.log(`Server listening to port ${port}................`));
     } catch (error) {
         console.log(err);

@@ -1,5 +1,11 @@
 const Tasks = require("../models/Tasks");
 const path = require("path");
+const badWord = require("bad-words");
+const filter = new badWord();
+
+const initalize = ()=>{
+    filter.addWords("gay", "bsdk", "saale", "chutiya", "kamina", "Maderchod", "Bosdika", "Behen", "chod", "Randwa", "maa", "Bhadwa", "chuth", "randi", "ma");
+}
 
 const getAllTasks = async(req, res)=>{
     try {
@@ -14,7 +20,11 @@ const getAllTasks = async(req, res)=>{
 
 const createTasks = async(req, res)=>{
     try {
-        const task = await Tasks.create(req.body);
+        // console.log(req.body);
+        let {author, body} = req.body;
+        body = filter.clean(body);
+        // console.log(body);
+        const task = await Tasks.create({author, body});
         res.status(201).json({task});
         // res.status(201).sendFile(path.join(__dirname, "../public/index.html"));
     } catch (error) {
@@ -46,5 +56,6 @@ const updateTask = async(req, res)=>{
 module.exports = {
     getAllTasks, 
     createTasks,
-    updateTask
+    updateTask,
+    initalize
 };
