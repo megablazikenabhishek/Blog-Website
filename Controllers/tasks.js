@@ -9,7 +9,12 @@ const initalize = ()=>{
 
 const getAllTasks = async(req, res)=>{
     try {
-        const task = await Tasks.find({});
+        let task = await Tasks.find({}).sort("_id");
+        const pin = task[0];
+        task = task.slice(1);
+        task.push(pin);
+        task.reverse();
+        // console.log(task);
         res.status(200).json({task});
     } catch (error) {
         res.status(500).json({sucess: false,
