@@ -6,19 +6,24 @@ const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorhandler");
 const {initalize} = require("./Controllers/tasks");
 
+//Morgan Bhai
+const morgan = require("morgan");
+
 //DB
 const connectDB =  require("./db/connection");
 
 //middleware
+app.use(morgan("tiny"));
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
-app.use(errorHandler);
 
 //routes
 app.use("/api/tasks", tasks);
 
 app.get("*", notFound);
+
+app.use(errorHandler);
 
 const port = process.env.PORT||4200;
 
