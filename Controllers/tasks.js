@@ -29,7 +29,6 @@ const createTasks = async(req, res)=>{
         let {author, body} = req.body;
         author = filter.clean(author);
         body = filter.clean(body);
-        // console.log(body);
         const task = await Tasks.create({author, body});
         res.status(201).json({task});
         // res.status(201).sendFile(path.join(__dirname, "../public/index.html"));
