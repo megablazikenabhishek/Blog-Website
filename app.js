@@ -31,6 +31,7 @@ const port = process.env.PORT||4200;
 const start = async()=>{
     try {
         initalize();
+        console.log(process.env.MONGO_URI);
         await connectDB(process.env.MONGO_URI);  
         app.listen(port, ()=> console.log(`Server listening to port ${port}................`));
     } catch (error) {
