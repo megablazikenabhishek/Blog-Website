@@ -1,8 +1,7 @@
 const express = require("express");
 const app = express();
 const tasks = require("./Routers/tasks");
-// require("dotenv").config();
-require("dotenv").config({path:"./etc/secrets/.env"});
+require("dotenv").config();
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorhandler");
 const {initalize} = require("./Controllers/tasks");
@@ -31,7 +30,6 @@ const port = process.env.PORT||4200;
 const start = async()=>{
     try {
         initalize();
-        console.log(process.env.MONGO_URI);
         await connectDB(process.env.MONGO_URI);  
         app.listen(port, ()=> console.log(`Server listening to port ${port}................`));
     } catch (error) {
