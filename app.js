@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const tasks = require("./Routers/tasks");
-require("dotenv").config();
+// require("dotenv").config();
+require("dotenv").config({path:"./etc/secrets/.env"});
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorhandler");
 const {initalize} = require("./Controllers/tasks");
