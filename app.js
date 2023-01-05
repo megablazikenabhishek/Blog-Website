@@ -13,7 +13,7 @@ const morgan = require("morgan");
 const connectDB =  require("./db/connection");
 
 //middleware
-app.use(morgan("short"));
+// app.use(morgan("short"));
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
