@@ -4,38 +4,38 @@ const task_form = document.querySelector(".task-form");
 const submit_btn = document.querySelector(".submit-btn");
 let currUser;
 
-const getUser =
-    async () => {
-  let requestOptions = {method : 'GET', redirect : 'follow'};
+const getUser = async () => {
+  let requestOptions = { method: "GET", redirect: "follow" };
 
   await fetch("/google/getPerson", requestOptions)
-      .then(response => response.json())
-      .then(res => { currUser = res.user; })
-      .catch(err => console.log(err));
+    .then((response) => response.json())
+    .then((res) => {
+      currUser = res.user;
+    })
+    .catch((err) => console.log(err));
   // console.log(currUser);
   author_input.value = currUser.username;
   author_input.disabled = true;
 
   document.getElementById("username").textContent = currUser.username;
   document.getElementById("profile-pic").src = currUser.img;
-}
+};
 
-const showFeed =
-    async () => {
-  let requestOptions = {method : 'GET', redirect : 'follow'};
+const showFeed = async () => {
+  let requestOptions = { method: "GET", redirect: "follow" };
 
   await fetch("/api/tasks", requestOptions)
-      .then(response => response.json())
-      .then((res) => {
-        let {task : data} = res;
-        for (let i = 0; i < data.length; i++) {
-          let val = document.createElement("section");
-          val.classList.add("feed-container");
-          let s = data[i].body;
-          // console.log(data[i].date);
+    .then((response) => response.json())
+    .then((res) => {
+      let { task: data } = res;
+      for (let i = 0; i < data.length; i++) {
+        let val = document.createElement("section");
+        val.classList.add("feed-container");
+        let s = data[i].body;
+        // console.log(data[i].date);
 
-          if (data[i].author_id === currUser.googleId) {
-            val.innerHTML = `
+        if (data[i].author_id === currUser.googleId) {
+          val.innerHTML = `
                     <div class="single-task">
                         <div class="delete-link" id = "${data[i]._id}">
                             <img src="./img/delete.png" alt="delete" />
@@ -55,15 +55,18 @@ const showFeed =
                         </a>
                     </div>
                 `;
-            document.querySelector("body").appendChild(val);
-            document.getElementById(`${data[i]._id}0`)
-                .addEventListener("click", likeBlog)
-            document.getElementById(`${data[i]._id}1`)
-                .addEventListener("click", dislikeBlog);
-            document.getElementById(data[i]._id)
-                .addEventListener("click", deleteBlog);
-          } else {
-            val.innerHTML = `
+          document.querySelector("body").appendChild(val);
+          document
+            .getElementById(`${data[i]._id}0`)
+            .addEventListener("click", likeBlog);
+          document
+            .getElementById(`${data[i]._id}1`)
+            .addEventListener("click", dislikeBlog);
+          document
+            .getElementById(data[i]._id)
+            .addEventListener("click", deleteBlog);
+        } else {
+          val.innerHTML = `
                     <div class="single-task">
                         <h9>${s}</h9>
                         <h6>by ${data[i].author} ${data[i].date}</h6>
@@ -80,19 +83,20 @@ const showFeed =
                         </a>
                     </div>
                 `;
-            document.querySelector("body").appendChild(val);
-            document.getElementById(`${data[i]._id}0`)
-                .addEventListener("click", likeBlog)
-            document.getElementById(`${data[i]._id}1`)
-                .addEventListener("click", dislikeBlog);
-          }
+          document.querySelector("body").appendChild(val);
+          document
+            .getElementById(`${data[i]._id}0`)
+            .addEventListener("click", likeBlog);
+          document
+            .getElementById(`${data[i]._id}1`)
+            .addEventListener("click", dislikeBlog);
         }
-      })
-      .catch(error => console.log('error', error));
-}
+      }
+    })
+    .catch((error) => console.log("error", error));
+};
 
-const postBlog =
-    async () => {
+const postBlog = async () => {
   const author = author_input.value;
   const body = body_input.value;
 
@@ -104,27 +108,32 @@ const postBlog =
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  let raw = JSON.stringify(
-      {"author" : author, "body" : body, "author_id" : currUser.googleId});
+  let raw = JSON.stringify({
+    author: author,
+    body: body,
+    author_id: currUser.googleId,
+  });
 
-  let requestOptions =
-      {method : 'POST', headers : myHeaders, body : raw, redirect : 'follow'};
+  let requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
 
   await fetch("/api/tasks", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 
   location.reload();
-}
+};
 
-const likeBlog =
-    async (e) => {
-  if (e.currentTarget.children[0].src.includes("dark"))
-    return;
+const likeBlog = async (e) => {
+  if (e.currentTarget.children[0].src.includes("dark")) return;
   const id = e.currentTarget.id;
   let photo = e.currentTarget.children[0];
-  photo.src = "./img/icons8-facebook-like-24-dark.png"
+  photo.src = "./img/icons8-facebook-like-24-dark.png";
 
   let likes = e.currentTarget.children[1];
   val = likes.textContent;
@@ -134,7 +143,7 @@ const likeBlog =
 
   // for dislikes
   let dislikes =
-      e.currentTarget.parentElement.children[1].children[1].textContent;
+    e.currentTarget.parentElement.children[1].children[1].textContent;
   dislikes = Number(dislikes);
 
   // console.log(like, dislikes);
@@ -142,26 +151,28 @@ const likeBlog =
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  let raw = JSON.stringify({"meta" : {"likes" : like, "dislikes" : dislikes}});
+  let raw = JSON.stringify({ meta: { likes: like, dislikes: dislikes } });
 
-  let requestOptions =
-      {method : 'PATCH', headers : myHeaders, body : raw, redirect : 'follow'};
+  let requestOptions = {
+    method: "PATCH",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
 
   // console.log(id);
 
   await fetch("/api/tasks/" + id.substring(0, id.length - 1), requestOptions)
-      .then(response => response.json())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-}
+    .then((response) => response.json())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+};
 
-const dislikeBlog =
-    async (e) => {
-  if (e.currentTarget.children[0].src.includes("dark"))
-    return;
+const dislikeBlog = async (e) => {
+  if (e.currentTarget.children[0].src.includes("dark")) return;
   const id = e.currentTarget.id;
   let photo = e.currentTarget.children[0];
-  photo.src = "./img/icons8-thumbs-down-24-dark.png"
+  photo.src = "./img/icons8-thumbs-down-24-dark.png";
 
   let dislikes = e.currentTarget.children[1];
   val = dislikes.textContent;
@@ -178,38 +189,46 @@ const dislikeBlog =
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  let raw = JSON.stringify({"meta" : {"likes" : like, "dislikes" : dislikes}});
+  let raw = JSON.stringify({ meta: { likes: like, dislikes: dislikes } });
 
-  let requestOptions =
-      {method : 'PATCH', headers : myHeaders, body : raw, redirect : 'follow'};
+  let requestOptions = {
+    method: "PATCH",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
 
   await fetch("/api/tasks/" + id.substring(0, id.length - 1), requestOptions)
-      .then(response => response.json())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-}
+    .then((response) => response.json())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+};
 
-const deleteBlog =
-    (e) => {
-      if (confirm("Do want to delete this blog")) {
-        var requestOptions = {method : 'DELETE', redirect : 'follow'};
-        const id = e.currentTarget.id;
-        // console.log(id);
-        fetch("/api/tasks/" + id, requestOptions)
-            .catch(error => console.log('error', error));
-        setTimeout(() => { let i = 1 + 1; }, 1000);
-        location.reload();
-      }
-    }
+const deleteBlog = (e) => {
+  if (confirm("Do want to delete this blog")) {
+    var requestOptions = { method: "DELETE", redirect: "follow" };
+    const id = e.currentTarget.id;
+    // console.log(id);
+    fetch("/api/tasks/" + id, requestOptions).catch((error) =>
+      console.log("error", error)
+    );
+    setTimeout(() => {
+      let i = 1 + 1;
+    }, 1000);
+    location.reload();
+  }
+};
 
-           submit_btn.addEventListener("click", (e) => {
-             e.preventDefault();
-             postBlog();
-           })
+submit_btn.addEventListener("click", (e) => {
+  e.preventDefault();
+  postBlog();
+});
 task_form.addEventListener("submit", (e) => {
   e.preventDefault();
   postBlog();
-})
+});
 getUser();
-setTimeout(() => { let i = 1 + 1; }, 1000);
+setTimeout(() => {
+  let i = 1 + 1;
+}, 1000);
 showFeed();
