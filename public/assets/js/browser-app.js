@@ -68,7 +68,7 @@ const showFeed = async()=>{
                     val.innerHTML = `
                     <div class="single-task">
                         <h9>${s}</h9>
-                        <h6>by ${data[i].author} on ${data[i].date}</h6>
+                        <h6>by ${data[i].author} ${data[i].date}</h6>
                         <div class="task-links">
                         <!-- like link -->
                         <a class="edit-link" id="${data[i]._id}0">
