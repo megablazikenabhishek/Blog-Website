@@ -4,7 +4,8 @@ const router = express.Router();
 const {
     getAllTasks, 
     createTasks,
-    updateTask
+    updateTask,
+    deleteTask
 } = require("../Controllers/tasks");
 
 router.route("/")
@@ -13,5 +14,6 @@ router.route("/")
 
 router.route("/:id")
     .patch(updateTask)
+    .delete(deleteTask)
 
 module.exports = router;

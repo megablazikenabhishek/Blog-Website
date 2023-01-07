@@ -447,3 +447,14 @@ form > :last-child {
   width: 100%;
 }
 
+.delete-link{
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  cursor: pointer;
+}
+
+.none{
+  display: none;
+}

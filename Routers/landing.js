@@ -13,4 +13,15 @@ router.get("/", (req, res, next)=>{
 
 router.get("/callback", passport.authenticate("google", {failureRedirect:"/", successRedirect:"/dashboard"}));
 
+router.get("/getPerson", (req, res, next)=>{
+    const userId = req.user;
+    const data = userId._json;
+    const user = {
+        username: data.name,
+        googleId: data.sub,
+        img: data.picture
+    }
+    res.status(200).json({sucess:true, user});
+})
+
 module.exports = router;

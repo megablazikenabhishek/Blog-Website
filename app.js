@@ -64,7 +64,7 @@ app.get("/logout", (req, res, next)=>{
 })
 app.get("*", notFound);
 
-// app.use(errorHandler);
+app.use(errorHandler);
 
 const port = process.env.PORT||4200;
 
