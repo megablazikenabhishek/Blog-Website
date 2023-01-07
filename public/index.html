@@ -1,50 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- favicon -->
-    <link rel="shortcut icon" href="./fav.ico" type="image/x-icon" />
-    <!-- font awesome -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Blog Website</title>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
     />
-    <!-- normalize css -->
-    <link rel="stylesheet" href="./normalize.css" />
-    <!-- main css -->
-    <link rel="stylesheet" href="./main.css" />
-    <title>Blog Webiste</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/gradient-navbar-styles.css" />
+    <link rel="stylesheet" href="assets/css/gradient-navbar.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link
+      rel="stylesheet"
+      href="assets/css/Navbar-Right-Links-Dark-icons.css"
+    />
+    <link rel="stylesheet" href="assets/css/normalize.css" />
+    <link rel="shortcut icon" href="fav.ico" type="image/x-icon" />
   </head>
+
   <body>
-    <form class="task-form">
-      <h4>Post your Thoughts</h4>
-      <input
-        type="text"
-        class="task-input"
-        placeholder="enter your name"
-        autocomplete="off"
-      />
-      <textarea
-        name="name"
-        cols="30"
-        rows="10"
-        name="name"
-        class="body-input"
-        placeholder="Type something....."
-        autocomplete="off"
-      ></textarea>
-      <button type="submit" class="btn submit-btn">submit</button>
-      <div class="form-alert"></div>
-    </form>
+    <section
+      class="py-4 py-xl-5"
+      style="display: flex; justify-content: center; align-items: center"
+    ></section>
+    <section
+      class="py-4 py-xl-5"
+      style="
+        margin-bottom: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1px;
+      "
+    >
+      <div
+        class="container h-100"
+        style="display: flex; justify-content: center; align-items: center"
+      >
+        <div
+          class="text-white bg-primary border rounded border-0 p-4 py-5"
+          style="
+            width: 80%;
+            max-width: 600px;
+            background: repeating-linear-gradient(
+              -94deg,
+              var(--bs-green) 0%,
+              rgb(38, 138, 80) 0%,
+              var(--bs-yellow) 170%
+            );
+          "
+        >
+          <div class="row h-100">
+            <div
+              class="col-md-5 col-lg-4 col-xl-8 text-center d-flex d-sm-flex d-md-flex justify-content-center align-items-center mx-auto justify-content-md-start align-items-md-center justify-content-lg-center justify-content-xl-center"
+              style="width: 70%; /*display: flex;*/ text-align: center"
+            >
+              <div>
+                <h1 class="text-uppercase fw-bold text-white mb-3">
+                  welcome to our <br />Blog websitte
+                </h1>
+                <p class="mb-4">Login with google to continue</p>
+                <button
+                  class="btn btn-light fs-5 d-inline-flex flex-row justify-content-center align-items-center py-2 px-4"
+                  data-bss-hover-animate="pulse"
+                  type="button"
+                  style="border-radius: 5"
+                >
+                  Login&nbsp;<i class="fab fa-google-plus-g"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/browser-app.js"></script>
+    <script>
+      document
+        .querySelector(".btn")
+        .addEventListener("click", () => (window.location.href = "/google"));
+    </script>
   </body>
-  <!-- axios -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
-    integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  ></script>
-  <script src="./browser-app.js"></script>
 </html>
