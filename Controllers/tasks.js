@@ -1,4 +1,5 @@
 const Tasks = require("../models/Tasks");
+const path = require("path");
 const badWord = require("bad-words");
 const filter = new badWord();
 
@@ -24,12 +25,13 @@ const getAllTasks = async(req, res)=>{
 
 const createTasks = async(req, res)=>{
     try {
-        console.log(req.body);
-        let {author, body, author_id} = req.body;
+        // console.log(req.body);
+        let {author, body} = req.body;
         author = filter.clean(author);
         body = filter.clean(body);
-        const task = await Tasks.create({author, body, author_id});
+        const task = await Tasks.create({author, body});
         res.status(201).json({task});
+        // res.status(201).sendFile(path.join(__dirname, "../public/index.html"));
     } catch (error) {
         res.status(500).json({sucess: false,
             msg: error
@@ -55,23 +57,10 @@ const updateTask = async(req, res)=>{
     }
 }
 
-const deleteTask = async(req, res)=>{
-    const {id: taksID} = req.params;
-    try {
-        const task = await Tasks.deleteOne({_id:taksID});
-        res.status(200).json({sucess:true,task});
-    } catch (error) {
-        res.status(500).json({sucess: false,
-            msg: error
-        });
-    }
-}
-
 
 module.exports = {
     getAllTasks, 
     createTasks,
     updateTask,
-    deleteTask,
     initalize
 };
